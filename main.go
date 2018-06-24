@@ -51,12 +51,15 @@ func writeToSpriteSheet(pngs []string) {
 
 	tileSize := imagesToConv[0].Bounds().Dx()
 
-	spriteSheetSize := tileSize * imageCount
+	imageCountHalf := imageCount / 2
+	spriteSheetSize := (tileSize * imageCountHalf)
 	newImage := gg.NewContext(spriteSheetSize, spriteSheetSize)
 
+	println("packing", imageCount, "sprites into", spriteSheetSize, "x", spriteSheetSize, "sheet")
+
 	for i, img := range imagesToConv {
-		x := (i % spriteSheetSize) * tileSize
-		y := (i / spriteSheetSize) * tileSize
+		x := (i % imageCountHalf) * tileSize
+		y := (i / imageCountHalf) * tileSize
 		newImage.DrawImage(img, x, y)
 	}
 
